@@ -8,6 +8,12 @@
   }
 
   ::selection {
-    @apply bg-accent/30 text-foreground;
+    @apply bg-accent/20 text-foreground;
+  }
+
+  /* Smooth font rendering for the papery feel */
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }

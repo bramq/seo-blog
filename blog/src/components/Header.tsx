@@ -7,7 +7,7 @@ export function Header() {
       <nav className="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
         <Link
           href="/"
-          className="text-xl font-bold text-foreground transition-colors hover:text-accent"
+          className="font-serif text-xl font-bold text-foreground transition-colors hover:text-accent"
         >
           {SITE_NAME}
         </Link>

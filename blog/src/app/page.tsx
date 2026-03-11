@@ -8,14 +8,14 @@ export default function HomePage() {
   return (
     <>
       <section className="mb-12">
-        <h1 className="text-4xl font-bold tracking-tight text-foreground">
+        <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground">
           {SITE_NAME}
         </h1>
         <p className="mt-4 text-lg text-muted">{SITE_DESCRIPTION}</p>
       </section>
 
       <section>
-        <h2 className="mb-6 text-2xl font-semibold text-foreground">
+        <h2 className="mb-6 font-serif text-2xl font-semibold text-foreground">
           Laatste artikelen
         </h2>
         {posts.length === 0 ? (

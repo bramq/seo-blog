@@ -112,7 +112,7 @@ export default async function BlogPostPage({
             <span>&middot;</span>
             <span>{post.category}</span>
           </div>
-          <h1 className="mt-4 text-4xl font-bold tracking-tight text-foreground">
+          <h1 className="mt-4 font-serif text-4xl font-bold tracking-tight text-foreground">
             {post.title}
           </h1>
           <p className="mt-4 text-lg text-muted">{post.description}</p>
@@ -132,14 +132,14 @@ export default async function BlogPostPage({
 
         {post.faqs && post.faqs.length > 0 && (
           <section className="mt-16">
-            <h2 className="mb-6 text-2xl font-bold text-foreground">
+            <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">
               Veelgestelde vragen
             </h2>
             <div className="flex flex-col gap-4">
               {post.faqs.map((faq, i) => (
                 <details
                   key={i}
-                  className="rounded-lg border border-border bg-card p-4"
+                  className="rounded border border-border bg-card p-4"
                 >
                   <summary className="cursor-pointer font-medium text-foreground">
                     {faq.question}

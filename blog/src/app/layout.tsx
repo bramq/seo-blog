@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Lora } from 'next/font/google'
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -8,6 +8,12 @@ import './globals.css'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const lora = Lora({
+  subsets: ['latin'],
+  variable: '--font-lora',
   display: 'swap',
 })
 
@@ -46,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="nl" className={inter.variable}>
+    <html lang="nl" className={`${inter.variable} ${lora.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
         <Header />
         <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-12">
