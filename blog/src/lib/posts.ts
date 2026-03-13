@@ -9,6 +9,7 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import readingTime from 'reading-time'
+import { extractToc, type TocItem } from './toc'
 
 const postsDirectory = path.join(process.cwd(), 'content', 'posts')
 
@@ -33,6 +34,7 @@ export interface PostMeta extends PostFrontmatter {
 
 export interface Post extends PostMeta {
   content: string
+  headings: TocItem[]
 }
 
 function getMarkdownFiles(): string[] {
@@ -74,6 +76,16 @@ export function getAllSlugs(): string[] {
   return getAllPosts().map((post) => post.slug)
 }
 
+export function getPostsByCategory(categorySlug: string): PostMeta[] {
+  return getAllPosts().filter(
+    (p) =>
+      p.category
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/&/g, 'en') === categorySlug
+  )
+}
+
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const filePath = path.join(postsDirectory, `${slug}.md`)
 
@@ -96,10 +108,13 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(rawContent)
 
+  const html = result.toString()
+
   return {
     ...frontmatter,
     slug,
     readingTime: readingTime(rawContent).text,
-    content: result.toString(),
+    content: html,
+    headings: extractToc(html),
   }
 }

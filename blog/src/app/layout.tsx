@@ -55,7 +55,7 @@ export default function RootLayout({
     <html lang="nl" className={`${inter.variable} ${lora.variable}`}>
       <body className="flex min-h-screen flex-col font-sans">
         <Header />
-        <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-12">
+        <main className="flex-1">
           {children}
         </main>
         <Footer />

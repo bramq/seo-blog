@@ -4,6 +4,7 @@ import { getAllSlugs, getPostBySlug } from '@/lib/posts'
 import { SITE_URL, SITE_NAME } from '@/lib/constants'
 import { PostContent } from '@/components/PostContent'
 import { JsonLd } from '@/components/JsonLd'
+import { TableOfContents, MobileToc } from '@/components/TableOfContents'
 
 export const dynamicParams = false
 
@@ -97,60 +98,77 @@ export default async function BlogPostPage({
       <JsonLd data={articleJsonLd} />
       {faqJsonLd && <JsonLd data={faqJsonLd} />}
 
-      <article>
-        <header className="mb-10">
-          <div className="flex items-center gap-3 text-sm text-muted">
-            <time dateTime={post.date}>
-              {new Date(post.date).toLocaleDateString('nl-NL', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
-            <span>&middot;</span>
-            <span>{post.readingTime}</span>
-            <span>&middot;</span>
-            <span>{post.category}</span>
-          </div>
-          <h1 className="mt-4 font-serif text-4xl font-bold tracking-tight text-foreground">
-            {post.title}
-          </h1>
-          <p className="mt-4 text-lg text-muted">{post.description}</p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-accent/10 px-3 py-1 text-xs text-accent"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </header>
+      <div className="mx-auto max-w-6xl px-4 py-12">
+        <div className="lg:flex lg:gap-10">
+          {/* TOC sidebar - desktop */}
+          {post.headings.length > 0 && (
+            <aside className="hidden w-64 shrink-0 lg:block">
+              <TableOfContents headings={post.headings} />
+            </aside>
+          )}
 
-        <PostContent html={post.content} />
+          {/* Main content */}
+          <article className="min-w-0 flex-1 max-w-3xl">
+            {/* Mobile TOC */}
+            {post.headings.length > 0 && (
+              <MobileToc headings={post.headings} />
+            )}
 
-        {post.faqs && post.faqs.length > 0 && (
-          <section className="mt-16">
-            <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">
-              Veelgestelde vragen
-            </h2>
-            <div className="flex flex-col gap-4">
-              {post.faqs.map((faq, i) => (
-                <details
-                  key={i}
-                  className="rounded border border-border bg-card p-4"
-                >
-                  <summary className="cursor-pointer font-medium text-foreground">
-                    {faq.question}
-                  </summary>
-                  <p className="mt-3 text-muted">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </section>
-        )}
-      </article>
+            <header className="mb-10 mt-6 lg:mt-0">
+              <div className="flex items-center gap-3 text-sm text-muted">
+                <time dateTime={post.date}>
+                  {new Date(post.date).toLocaleDateString('nl-NL', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+                <span>&middot;</span>
+                <span>{post.readingTime}</span>
+                <span>&middot;</span>
+                <span>{post.category}</span>
+              </div>
+              <h1 className="mt-4 font-serif text-4xl font-bold tracking-tight text-foreground">
+                {post.title}
+              </h1>
+              <p className="mt-4 text-lg text-muted">{post.description}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-accent/10 px-3 py-1 text-xs text-accent"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </header>
+
+            <PostContent html={post.content} />
+
+            {post.faqs && post.faqs.length > 0 && (
+              <section className="mt-16">
+                <h2 className="mb-6 font-serif text-2xl font-bold text-foreground">
+                  Veelgestelde vragen
+                </h2>
+                <div className="flex flex-col gap-4">
+                  {post.faqs.map((faq, i) => (
+                    <details
+                      key={i}
+                      className="rounded border border-border bg-card p-4"
+                    >
+                      <summary className="cursor-pointer font-medium text-foreground">
+                        {faq.question}
+                      </summary>
+                      <p className="mt-3 text-muted">{faq.answer}</p>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+          </article>
+        </div>
+      </div>
     </>
   )
 }
