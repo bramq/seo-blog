@@ -1,4 +1,4 @@
-export const SITE_URL = process.env.SITE_URL || 'http://localhost:3000'
+export const SITE_URL = process.env.SITE_URL || 'https://claudehandboek.com'
 export const SITE_NAME = process.env.SITE_NAME || 'Claude Code Gids'
 export const SITE_DESCRIPTION =
   process.env.SITE_DESCRIPTION ||
