@@ -5,6 +5,7 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import './globals.css'
 
 const inter = Inter({
@@ -55,6 +56,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl" className={`${inter.variable} ${lora.variable}`}>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-W5K4Y9H0TE"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W5K4Y9H0TE');
+          `}
+        </Script>
+      </head>
       <body className="flex min-h-screen flex-col font-sans">
         <Header />
         <main className="flex-1">
